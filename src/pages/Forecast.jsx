@@ -23,6 +23,8 @@ import {
 import { useWeather } from "../context/WeatherContext.jsx";
 import SunPath from "../components/SunPath.jsx";
 import { Link } from "react-router-dom";
+import SkeletonCard from "../components/SkeletonCard.jsx";
+import ErrorPopup from "../components/ErrorPopup.jsx";
 
 function Forecast() {
   const {
@@ -43,9 +45,19 @@ function Forecast() {
     item.dt_txt.includes("12:00:00"),
   );
 
-  if (loading) return <h1>Loading...</h1>;
-  if (error) return <h1 className="text-red-500">{error}</h1>;
+  
+  if (error) return <ErrorPopup />
 
+  if (loading || !currentWeather || !forecast) {
+    return (
+      <div className="min-h-screen bg-[#e9f1ff] p-6 flex flex-col gap-6">
+        <SkeletonCard />
+        <SkeletonCard />
+        <SkeletonCard />
+      </div>
+    );
+  }
+  
   return (
     <div>
       <div className="min-h-screen w-full bg-[#e9f1ff] pb-28">
@@ -91,7 +103,7 @@ function Forecast() {
                   </div>
                 </div>
 
-                <div className="w-[100px] flex flex-col justify-center items-center bg-blue-100 rounded-full p-2">
+                <div className="w-[100px] flex flex-col justify-center items-center bg-blue-100 rounded-2xl p-2">
                   <img
                     src={`https://openweathermap.org/img/wn/${currentWeather?.weather[0]?.icon}@2x.png`}
                     alt="weather"

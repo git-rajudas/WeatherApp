@@ -48,6 +48,12 @@ const router = createBrowserRouter(
           </ProtectedRoute>
 
         } />
+        <Route path="search/:cityname" element={
+          <ProtectedRoute>
+            <Location />
+          </ProtectedRoute>
+
+        } />
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
       </Route>
