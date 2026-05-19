@@ -29,7 +29,7 @@ const router = createBrowserRouter(
     <>
       <Route path="/" element={<LandingPage />} />
       <Route path="/app" element={<Index />}>
-        <Route path="" element={<Home />} />
+        <Route index element={<Home />} />
         <Route path="forecast" element={
           <ProtectedRoute>
           <Forecast/>

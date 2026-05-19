@@ -5,6 +5,7 @@ import { VitePWA } from "vite-plugin-pwa";
 
 // https://vite.dev/config/
 export default defineConfig({
+  base: "/",
   plugins: [
     react(),
     tailwindcss(),
@@ -19,8 +20,9 @@ export default defineConfig({
         description: "Modern Weather Application",
         theme_color: "#3b82f6",
         background_color: "#e9f1ff",
+        orientation: "portrait",
         display: "standalone",
-        start_url: "/",
+        start_url: "/app",
 
         icons: [
           {
