@@ -122,17 +122,43 @@ This project helped improve skills in:
 Add your application screenshots here.
 
 
-<img width="1920" height="889" alt="Weather-App-05-19-2026_11_08_PM" src="https://github.com/user-attachments/assets/f0f12ab3-38b3-4c32-adf4-cbc779a126a7" />
-<img width="1920" height="889" alt="Weather-App-05-19-2026_11_09_PM" src="https://github.com/user-attachments/assets/c9be34ee-765b-4575-a198-ad75af7bf900" />
-<img width="1920" height="2146" alt="Weather-App-05-19-2026_11_09_PM (2)" src="https://github.com/user-attachments/assets/eb3915cb-99f9-4098-9878-dcea256bd020" />
-<img width="1920" height="2146" alt="Weather-App-05-19-2026_11_09_PM (2)" src="https://github.com/user-attachments/assets/d277ada1-920b-4763-b90f-a445893b816f" />
-<img width="1920" height="1205" alt="Weather-App-05-19-2026_11_09_PM (3)" src="https://github.com/user-attachments/assets/12805719-6b73-417a-89af-7070d12d029f" />
+## 📸 Screenshots
 
-<img width="1290" height="2796" alt="weatherapp-hsdc onrender com_(iPhone 14 Pro Max)" src="https://github.com/user-attachments/assets/91b495a1-ef88-4b30-a32f-79a59270c03c" />
-<img width="1290" height="2796" alt="weatherapp-hsdc onrender com_(iPhone 14 Pro Max) (1)" src="https://github.com/user-attachments/assets/c8926520-093a-4028-95b5-283a7882d56d" />
-<img width="1290" height="2796" alt="weatherapp-hsdc onrender com_(iPhone 14 Pro Max) (2)" src="https://github.com/user-attachments/assets/0fd416c9-3a0d-4642-9311-78e42ab8b78e" />
-<img width="1290" height="2796" alt="weatherapp-hsdc onrender com_(iPhone 14 Pro Max) (3)" src="https://github.com/user-attachments/assets/acac84c5-6a1e-46d8-9031-043e8e8aeca9" />
-<img width="1290" height="2796" alt="weatherapp-hsdc onrender com_(iPhone 14 Pro Max) (4)" src="https://github.com/user-attachments/assets/ffdfb003-c037-4801-b2f5-d34577cd53aa" />
+<div align="center">
+
+<img src="https://github.com/user-attachments/assets/f0f12ab3-38b3-4c32-adf4-cbc779a126a7" width="800" />
+
+<br><br>
+
+<img src="https://github.com/user-attachments/assets/c9be34ee-765b-4575-a198-ad75af7bf900" width="800" />
+
+<br><br>
+
+<img src="https://github.com/user-attachments/assets/eb3915cb-99f9-4098-9878-dcea256bd020" width="400" />
+
+<img src="https://github.com/user-attachments/assets/d277ada1-920b-4763-b90f-a445893b816f" width="400" />
+
+<br><br>
+
+<img src="https://github.com/user-attachments/assets/12805719-6b73-417a-89af-7070d12d029f" width="800" />
+
+</div>
+
+
+## 📸 Screenshots Mobile view
+
+<div align="center">
+
+<img src="https://github.com/user-attachments/assets/91b495a1-ef88-4b30-a32f-79a59270c03c" width="220" />
+<img src="https://github.com/user-attachments/assets/c8926520-093a-4028-95b5-283a7882d56d" width="220" />
+
+<img src="https://github.com/user-attachments/assets/0fd416c9-3a0d-4642-9311-78e42ab8b78e" width="220" />
+<img src="https://github.com/user-attachments/assets/acac84c5-6a1e-46d8-9031-043e8e8aeca9" width="220" />
+
+<img src="https://github.com/user-attachments/assets/ffdfb003-c037-4801-b2f5-d34577cd53aa" width="220" />
+
+</div>
+
 
 
 ---
