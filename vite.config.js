@@ -18,11 +18,11 @@ export default defineConfig({
         name: "Weather App",
         short_name: "Weather",
         description: "Modern Weather Application",
-        theme_color: "#3b82f6",
-        background_color: "#e9f1ff",
+        theme_color: "#000000",
+        background_color: "#000000",
         orientation: "portrait",
         display: "standalone",
-        start_url: "/app",
+        start_url: "/",
 
         icons: [
           {

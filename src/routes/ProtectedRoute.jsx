@@ -16,7 +16,7 @@ function ProtectedRoute({ children }) {
 
     // not logged in
     if (!user) {
-        return <Navigate to="/app/login" replace />;
+        return <Navigate to="/login" replace />;
     }
 
     // logged in

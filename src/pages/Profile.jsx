@@ -17,26 +17,26 @@ import {
   RiArrowDownWideFill,
   RiArrowUpWideLine,
   RiArrowRightCircleLine,
+  RiDeleteBin5Line
 } from "@remixicon/react";
 import { data, Link } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import getSavedLocations from "../services/getSavedLocations";
 import { jsx } from "react/jsx-runtime";
-import SkeletonCard from '../components/SkeletonCard'
+import SkeletonCard from "../components/SkeletonCard";
 import Toast from "../components/Toast";
 import AuthSkeleton from "../components/AuthSkeleton";
 
 function Profile() {
-  const { profile, setProfile, loading, setLoading  } = useUser();
-  
+  const { profile, setProfile, loading, setLoading } = useUser();
+
   const [toast, setToast] = useState({
-        show: false,
-        message: "",
-        type: "",
-      });
+    show: false,
+    message: "",
+    type: "",
+  });
 
   const showToast = (message, type = "success") => {
-
     setToast({
       show: true,
       message,
@@ -50,10 +50,7 @@ function Profile() {
         type: "",
       });
     }, 3000);
-
   };
-
-
 
   // handle image upload popup
   const [showUpload, setShowUpload] = useState(false);
@@ -70,9 +67,7 @@ function Profile() {
 
   // handle Image Upload
   const uploadImage = async () => {
-
     try {
-
       if (!image) {
         return showToast("Please select an image", "error");
       }
@@ -81,57 +76,53 @@ function Profile() {
       // get current user
       const userData = await supabase.auth.getUser();
       const user = userData.data.user;
-      
+
       if (!user) {
         return showToast("User not found", "error");
       }
 
-       // unique filename
-    const fileName = `${user.id}-${Date.now()}`;
+      // unique filename
+      const fileName = `${user.id}-${Date.now()}`;
 
-    // upload image
-    const { data: uploadData, error: uploadError } = await supabase.storage
-      .from("avatars")
-      .upload(fileName, image);
+      // upload image
+      const { data: uploadData, error: uploadError } = await supabase.storage
+        .from("avatars")
+        .upload(fileName, image);
 
-    if (uploadError) {
-      showToast(uploadError , "error");
-    }
+      if (uploadError) {
+        showToast(uploadError, "error");
+      }
 
-    // get public url
-    const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
+      // get public url
+      const { data } = supabase.storage.from("avatars").getPublicUrl(fileName);
 
-    const imageUrl = data.publicUrl;
+      const imageUrl = data.publicUrl;
 
-    // update profile table
-    const { error: updateError } = await supabase
-      .from("profiles")
-      .update({
-        avatar_url: imageUrl,
-      })
-      .eq("id", user.id);
+      // update profile table
+      const { error: updateError } = await supabase
+        .from("profiles")
+        .update({
+          avatar_url: imageUrl,
+        })
+        .eq("id", user.id);
 
       if (updateError) {
         throw updateError;
-      }else {
-      // instantly update UI
-      setGetUserData((prev) => ({
-        ...prev,
-        avatar_url: imageUrl,
-      }));
-      closeUploadImage();
+      } else {
+        // instantly update UI
+        setGetUserData((prev) => ({
+          ...prev,
+          avatar_url: imageUrl,
+        }));
+        closeUploadImage();
 
-      showToast("Image Uploaded","success");
-     
-    }
-
-
-    }catch(error){
-      showToast(error.message,"error");
-    }finally{
+        showToast("Image Uploaded", "success");
+      }
+    } catch (error) {
+      showToast(error.message, "error");
+    } finally {
       setLoading(false);
     }
-
   };
 
   // handle User logout
@@ -139,24 +130,19 @@ function Profile() {
   const [logoutLoading, setLogoutLoading] = useState(false);
 
   const handleLogout = async () => {
-
     try {
       setLogoutLoading(true);
       const { error } = await supabase.auth.signOut();
       if (error) {
         throw error;
       }
-      
+
       navigate("/login");
-
-
-    } catch(error) {
+    } catch (error) {
       showToast(error.message, "error");
-
     } finally {
-       setLogoutLoading(false);
+      setLogoutLoading(false);
     }
-
   };
 
   const [savedLocations, setSavedLocations] = useState([]);
@@ -169,17 +155,48 @@ function Profile() {
     setShowLocations(!showLocations);
   };
 
-  if (loading || !profile ) {
+  const [showManagedLocation, setShowManagedLocation] = useState(false);
+  const toggleManagedLocationBtn = () => {
+    setShowManagedLocation(!showManagedLocation);
+  };
+
+
+  // saved delete location
+
+  const deleteLocation = async (id) => {
+  const confirmDelete = window.confirm("Delete this location?");
+
+  if (!confirmDelete) return;
+
+  try {
+    await supabase
+      .from("saved_locations")
+      .delete()
+      .eq("id", id);
+
+    setSavedLocations((prev) =>
+      prev.filter((l) => l.id !== id)
+    );
+
+    showToast("Deleted", "success");
+  } catch (err) {
+    showToast(err.message, "error");
+  }
+};
+
+
+
+  if (loading || !profile) {
     return (
       <div className="min-h-screen relative bg-[#e9f1ff] p-6 flex flex-col gap-6">
-        <AuthSkeleton/>
+        <AuthSkeleton />
       </div>
     );
   }
 
   return (
     <>
-    <Toast show={toast.show} message={toast.message} type={toast.type} />
+      <Toast show={toast.show} message={toast.message} type={toast.type} />
       <div className="min-h-screen bg-[#e9f1ff] pb-28">
         <div className="flex flex-col gap-8 px-6 py-8 ">
           {/* TOP BAR */}
@@ -284,7 +301,7 @@ function Profile() {
                 <div className="text-gray-500 sm:text-xl">Kolkata, IN</div>
               </div>
 
-              <div className="relative overflow-hidden bg-white w-full rounded-[35px] p-6 flex flex-col justify-center items-center gap-4">
+              <div className=" bg-white w-full rounded-[35px] p-6 flex flex-col justify-center items-center gap-4">
                 <div className="text-xl sm:text-2xl font-bold">
                   {savedLocations.length} /10
                 </div>
@@ -334,19 +351,47 @@ function Profile() {
               </div>
 
               <div className="bg-white w-full rounded-3xl p-6 flex flex-col justify-center items-center gap-2 shadow-xl">
-                <div className="flex items-center justify-between w-full gap-2 cursor-pointer">
-                  <div className="text-blue-500">
-                    <RiUserLocationLine />
+                <div
+                  className="flex flex-col items-center justify-between w-full gap-2 cursor-pointer"
+                  onClick={toggleManagedLocationBtn}
+                >
+                  <div className="flex w-full  justify-between items-center">
+                    <div className="text-blue-500">
+                      <RiUserLocationLine />
+                    </div>
+                    <div className="font-semibold">Manage Location</div>
+                    <div className="transition-all duration-300 text-blue-600">
+                      {showManagedLocation ? (
+                        <RiArrowUpWideLine />
+                      ) : (
+                        <RiArrowDownWideFill />
+                      )}
+                    </div>
                   </div>
-                  <div className="font-semibold">Manage Location</div>
-                  <div className="text-blue-600">
-                    <RiArrowRightWideLine />
+                  <div
+                    className={`flex flex-col gap-3  transition-all duration-300 w-full justify-center items-center ${showManagedLocation ? "max-h-[500px] opacity-100 mt-3" : "hidden"}`}
+                  >
+                    {savedLocations.map((location) => (
+                      <div
+                        key={location.id}
+                        className="bg-white p-4 rounded-2xl shadow-sm w-full justify-between items-center flex"
+                      >
+                        {location.city}, {location.country}
+                        <div
+                          onClick={() => deleteLocation(location.id)}
+                          className="hover:bg-red-500 px-2 py-1 flex gap-2 hover:text-white text-red-600 rounded-2xl transition-all duration-300"
+                        >
+                          <span className="text-white ">Delete</span>
+                          <RiDeleteBin5Line />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
 
               <div className="bg-white w-full rounded-3xl p-6 flex flex-col justify-center items-center gap-2 shadow-xl">
-                <div className="flex items-center justify-between w-full gap-2 cursor-pointer">
+                <Link to={"/help"} className="flex items-center justify-between w-full gap-2 cursor-pointer">
                   <div className="text-blue-500">
                     <RiQuestionLine />
                   </div>
@@ -354,11 +399,11 @@ function Profile() {
                   <div className="text-blue-600">
                     <RiArrowRightWideLine />
                   </div>
-                </div>
+                </Link>
               </div>
 
               <div className="bg-white w-full rounded-3xl p-6 flex flex-col justify-center items-center gap-2 shadow-xl">
-                <div className="flex items-center justify-between w-full gap-2 cursor-pointer">
+                <Link to={"/privacy-policy"} className="flex items-center justify-between w-full gap-2 cursor-pointer ">
                   <div className="text-blue-500">
                     <RiShieldCheckLine />
                   </div>
@@ -366,17 +411,15 @@ function Profile() {
                   <div className="text-blue-600">
                     <RiArrowRightWideLine />
                   </div>
-                </div>
+                </Link>
               </div>
 
               <div className="bg-white w-full rounded-3xl p-6 flex flex-col justify-center items-center gap-2 shadow-xl">
-                <div className="flex items-center justify-center w-full gap-2 cursor-pointer" onClick={handleLogout}>
-                  <div
-                    className="text-red-600 font-semibold"
-                    
-                  >
-                    Log Out
-                  </div>
+                <div
+                  className="flex items-center justify-center w-full gap-2 cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  <div className="text-red-600 font-semibold">Log Out</div>
                   <div className="text-red-600">
                     <RiLogoutCircleRLine />
                   </div>

@@ -136,7 +136,7 @@ function Signup() {
               </div>
               <button disabled={loading} type="submit" className='flex justify-center items-center gap-2 text-white font-semibold px-4 py-4 bg-blue-500 rounded-full w-full cursor-pointer'>{loading ? "Creating..." : "Sign Up"}</button>
 
-              <div className='flex justify-center items-center gap-2 text-black px-4 py-4 w-full cursor-pointer'>Already have an account? <Link to={"/app/login"} className='text-blue-500 cursor-pointer' >Sign In</Link>
+              <div className='flex justify-center items-center gap-2 text-black px-4 py-4 w-full cursor-pointer'>Already have an account? <Link to={"/login"} className='text-blue-500 cursor-pointer' >Sign In</Link>
               </div>
 
             </form>

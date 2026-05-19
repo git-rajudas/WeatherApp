@@ -23,40 +23,63 @@ import Profile from "./pages/Profile.jsx";
 
 import { WeatherProvider } from "./context/WeatherContext";
 import { UserProvider } from "./context/UserContext.jsx";
+import Policy from "./pages/Policy.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
+      
+      {/* public routes */}
       <Route path="/" element={<LandingPage />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/signup" element={<Signup />} />
+      <Route path="/help" element={<Contact />} />
+      <Route path="/privacy-policy" element={<Policy />} />
+
+      {/* App routes (protected layout) */}
       <Route path="/app" element={<Index />}>
         <Route index element={<Home />} />
-        <Route path="forecast" element={
-          <ProtectedRoute>
-          <Forecast/>
-          </ProtectedRoute>
-          
-          } />
-        <Route path="search" element={
-          <ProtectedRoute>
-            <Location />
-          </ProtectedRoute>
 
-        } />
-        <Route path="profile" element={
-          <ProtectedRoute>
-            <Profile />
-          </ProtectedRoute>
+        <Route
+          path="forecast"
+          element={
+            <ProtectedRoute>
+              <Forecast />
+            </ProtectedRoute>
+          }
+        />
 
-        } />
-        <Route path="search/:cityname" element={
-          <ProtectedRoute>
-            <Location />
-          </ProtectedRoute>
+        <Route
+          path="search"
+          element={
+            <ProtectedRoute>
+              <Location />
+            </ProtectedRoute>
+          }
+        />
 
-        } />
-        <Route path="login" element={<Login />} />
-        <Route path="signup" element={<Signup />} />
+        <Route
+          path="search/:cityname"
+          element={
+            <ProtectedRoute>
+              <Location />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="profile"
+          element={
+            <ProtectedRoute>
+              <Profile />
+            </ProtectedRoute>
+          }
+        />
       </Route>
+
+      {/* fallback route */}
+      <Route path="*" element={<div>404 Not Found</div>} />
+    
     </>,
   ),
 );

@@ -91,7 +91,7 @@ if (window.matchMedia("(display-mode: standalone)").matches){
     return null;
 }
 
-if(!showInstall || !deferredPrompt) return null;
+if (!showInstall) return null;
 
 
   return (

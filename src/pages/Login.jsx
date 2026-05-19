@@ -109,7 +109,7 @@ function Login() {
 
               <div className="flex justify-center items-center gap-2 text-black px-4 py-4 w-full cursor-pointer">
                 Don't have an account ?{" "}
-                <Link to={"/app/signup"} className="text-blue-500 cursor-pointer">Register</Link>
+                <Link to={"/signup"} className="text-blue-500 cursor-pointer">Register</Link>
               </div>
             </form>
           </div>
