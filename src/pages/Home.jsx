@@ -44,7 +44,6 @@ function Home() {
     getSavedLocations(setSavedLocations);
   },[]);
   const SavedCityName = savedLocations.map((item)=> (item.city))
-  console.log(SavedCityName);
 
   const [savedWeather, setSavedWeather] = useState([]);
 
@@ -71,7 +70,7 @@ function Home() {
 
   if (loading || !currentWeather || !forecast) {
     return (
-      <div className="min-h-screen bg-[#e9f1ff] p-6 flex flex-col gap-6">
+      <div className="min-h-screen relative bg-[#e9f1ff] p-6 flex flex-col gap-6">
         <SkeletonCard />
         <SkeletonCard />
         <SkeletonCard />
@@ -101,7 +100,7 @@ function Home() {
               <div>
                 <h2 className="text-sm text-gray-500 sm:text-2xl">Hello 👋</h2>
 
-                <h2 className="text-lg sm:text-3xl font-bold text-gray-800">{profile?.full_name || "User Name"} 😊</h2>
+                <h2 className="text-lg sm:text-3xl font-bold text-gray-800">{profile?.full_name || "User"} 😊</h2>
               </div>
             </div>
 
@@ -147,7 +146,7 @@ function Home() {
                 <p></p>
               </div>
 
-              <Link to={"/app/forecast"} className="bg-white/20 backdrop-blur-md p-3 rounded-2xl text-xl">
+              <Link to={"/app/forecast"} className="bg-white/20 backdrop-blur-md p-3 rounded-2xl text-xl ">
                 <RiArrowRightUpLongLine />
               </Link>
             </div>
@@ -196,7 +195,7 @@ function Home() {
                     />
                   </div>
 
-                  <Link to={`/app/search/${encodeURIComponent(weather?.name)}`}  className="bg-white/20 backdrop-blur-md p-3 rounded-2xl text-xl">
+                  <Link to={`/app/search/${encodeURIComponent(weather?.name)}`}  className="bg-white/20 p-3 rounded-2xl text-xl">
                     <RiArrowRightUpLongLine />
                   </Link>
                 </div>

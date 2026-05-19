@@ -8,7 +8,7 @@ function LandingPage() {
     
       <div className='h-screen w-full flex flex-col bg justify-between sm:justify-center items-center gap-5 sm:gap-2 bg-gradient-to-t from-white via-blue-200 to-blue-500'>
         <div className='flex flex-col items-center justify-center mt-30 sm:mt-20'>
-            <img className='w-[50%]' src="./src/assets/weatherLogo.png" alt="" />
+            <img className='w-[50%]' src="/weatherLogo.png" alt="" />
         </div>
         <div className='flex flex-col items-center justify-center p-10 bg-amber-50 rounded-4xl gap-6 m-5 sm:w-[30%]'>
             <h1 className='text-2xl sm:text-4xl font-bold text-blue-400 pt-5 '>Weather App</h1>

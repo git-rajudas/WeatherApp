@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { supabase } from '../supabase/supabase'
 import { RiMailLine, RiUserLine, RiLock2Line } from '@remixicon/react';
 import { Link, useNavigate } from "react-router-dom";
+import Toast from "../components/Toast"
+
 function Signup() {
 
 
@@ -10,58 +12,85 @@ function Signup() {
   const [full_name, setFullname] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const [toast, setToast] = useState({
+    show: false,
+    message: "",
+    type: "",
+  });
+
+
   const navigate = useNavigate();
 
   const handleSignup = async (e) => {
     e.preventDefault();
     if (loading) return;
 
-    setLoading(true);
-
-
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-    });
-
-    if (error) {
-      console.error(error.message);
-    } else {
-      console.log(data);
-
-      // check session
-      if (data.session) {
-        navigate("/app/profile");
-      } else {
-        alert("Check your email and confirm your account");
+    try {
+      setLoading(true);
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+      });
+      if (error) {
+        throw error;
       }
-
 
       if (data.user) {
         await supabase.from("profiles").insert({
           id: data.user.id,
           full_name: full_name,
           email: data.user.email,
-
         });
       }
 
-      if (data.session) {
-        navigate("/app/profile");
+      // email confirmation enable
+      if (!data.session) {
+        setToast({
+          show: true,
+          message: "Check your email for confirmation",
+          type: "success",
+        })
       } else {
-        alert("Check your email for confirmation");
+        navigate("/app/profile");
       }
 
+    } catch (err) {
+      setToast({
+        show: true,
+        message: err.message,
+        type: "error",
+      });
+    } finally {
+      setLoading(false);
+
+      setTimeout(() => {
+        setToast({
+          show: false,
+          message: "",
+          type: "",
+        });
+      }, 3000);
     }
-  };
+
+  }
+
+  if(loading) return(
+      <div className="min-h-screen relative bg-[#e9f1ff] p-6 flex flex-col gap-6">
+        <AuthSkeleton/>
+      </div>
+  )
 
   return (
     <>
+    <Toast show={toast.show} message={toast.message} type={toast.type} />
       <div className="h-screen justify-center items-center bg-[#e9f1ff] pb-28">
-        <div className="h-full flex flex-col gap-8 px-6 py-8">
+        <div className="h-full flex flex-col gap-8 px-6 py-8 justify-center items-center">
 
-          <div className='flex flex-col justify-center items-start h-full '>
-            <div className='flex flex-col gap-2'>
+          <div className='flex flex-col justify-center items-center h-full sm:w-[30%] '>
+            <div className='flex flex-col gap-2 items-center'>
+               <div className=" w-[100px] h-[100px] mb-3">
+                <img className="" src="/weatherLogo.png" alt="" />
+              </div>
               <div className='text-3xl'>
                 Create Account
               </div>
@@ -119,4 +148,4 @@ function Signup() {
   );
 }
 
-export default Signup
+  export default Signup

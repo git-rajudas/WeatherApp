@@ -22,9 +22,38 @@ import { data, Link } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import getSavedLocations from "../services/getSavedLocations";
 import { jsx } from "react/jsx-runtime";
+import SkeletonCard from '../components/SkeletonCard'
+import Toast from "../components/Toast";
+import AuthSkeleton from "../components/AuthSkeleton";
 
 function Profile() {
-  const { profile, setProfile, loading } = useUser();
+  const { profile, setProfile, loading, setLoading  } = useUser();
+  
+  const [toast, setToast] = useState({
+        show: false,
+        message: "",
+        type: "",
+      });
+
+  const showToast = (message, type = "success") => {
+
+    setToast({
+      show: true,
+      message,
+      type,
+    });
+
+    setTimeout(() => {
+      setToast({
+        show: false,
+        message: "",
+        type: "",
+      });
+    }, 3000);
+
+  };
+
+
 
   // handle image upload popup
   const [showUpload, setShowUpload] = useState(false);
@@ -41,12 +70,23 @@ function Profile() {
 
   // handle Image Upload
   const uploadImage = async () => {
-    const userData = await supabase.auth.getUser();
-    const user = userData.data.user;
 
-    if (!image) return;
+    try {
 
-    // unique filename
+      if (!image) {
+        return showToast("Please select an image", "error");
+      }
+      setLoading(true);
+
+      // get current user
+      const userData = await supabase.auth.getUser();
+      const user = userData.data.user;
+      
+      if (!user) {
+        return showToast("User not found", "error");
+      }
+
+       // unique filename
     const fileName = `${user.id}-${Date.now()}`;
 
     // upload image
@@ -55,8 +95,7 @@ function Profile() {
       .upload(fileName, image);
 
     if (uploadError) {
-      console.log(uploadError.message);
-      return;
+      showToast(uploadError , "error");
     }
 
     // get public url
@@ -72,9 +111,9 @@ function Profile() {
       })
       .eq("id", user.id);
 
-    if (updateError) {
-      console.log(updateError.message);
-    } else {
+      if (updateError) {
+        throw updateError;
+      }else {
       // instantly update UI
       setGetUserData((prev) => ({
         ...prev,
@@ -82,20 +121,42 @@ function Profile() {
       }));
       closeUploadImage();
 
-      console.log("Image Uploaded");
+      showToast("Image Uploaded","success");
+     
     }
+
+
+    }catch(error){
+      showToast(error.message,"error");
+    }finally{
+      setLoading(false);
+    }
+
   };
 
   // handle User logout
 
-  const handleLogout = async () => {
-    const { error } = await supabase.auth.signOut();
+  const [logoutLoading, setLogoutLoading] = useState(false);
 
-    if (error) {
-      console.log(error.message);
-    } else {
+  const handleLogout = async () => {
+
+    try {
+      setLogoutLoading(true);
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        throw error;
+      }
+      
       navigate("/login");
+
+
+    } catch(error) {
+      showToast(error.message, "error");
+
+    } finally {
+       setLogoutLoading(false);
     }
+
   };
 
   const [savedLocations, setSavedLocations] = useState([]);
@@ -108,18 +169,17 @@ function Profile() {
     setShowLocations(!showLocations);
   };
 
-  if (loading) {
+  if (loading || !profile ) {
     return (
-      <div className="min-h-screen bg-[#e9f1ff] p-6 flex flex-col gap-6">
-        <SkeletonCard />
-        <SkeletonCard />
-        <SkeletonCard />
+      <div className="min-h-screen relative bg-[#e9f1ff] p-6 flex flex-col gap-6">
+        <AuthSkeleton/>
       </div>
     );
   }
 
   return (
     <>
+    <Toast show={toast.show} message={toast.message} type={toast.type} />
       <div className="min-h-screen bg-[#e9f1ff] pb-28">
         <div className="flex flex-col gap-8 px-6 py-8 ">
           {/* TOP BAR */}
@@ -310,10 +370,10 @@ function Profile() {
               </div>
 
               <div className="bg-white w-full rounded-3xl p-6 flex flex-col justify-center items-center gap-2 shadow-xl">
-                <div className="flex items-center justify-center w-full gap-2 cursor-pointer">
+                <div className="flex items-center justify-center w-full gap-2 cursor-pointer" onClick={handleLogout}>
                   <div
                     className="text-red-600 font-semibold"
-                    onClick={handleLogout}
+                    
                   >
                     Log Out
                   </div>

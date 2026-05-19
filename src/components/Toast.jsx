@@ -11,12 +11,12 @@ function Toast({ message, type, show }) {
     >
       {type === "success" ? (
         <div className="flex flex-col justify-center items-center gap-4">
-            <div className="text-xl text-white">Saved Your Searched Location</div>
+            <div className="text-xl text-white">{message}</div>
             <div className="text-green-400"><RiCheckboxCircleFill size={50} /></div>
         </div>
       ) : (
         <div className="flex flex-col justify-center items-center gap-4">
-            <div className="text-xl text-white">Saved Your Searched Location</div>
+            <div className="text-xl text-white">{message}</div>
             <div className="text-red-400"><RiCloseCircleFill size={50} /></div>
             
         </div>
