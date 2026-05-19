@@ -155,7 +155,7 @@ function Location() {
 
                 <div className="flex flex-col sm:flex-row gap-8">
                   {/* Current Weather Card */}
-                  <div className="relative overflow-hidden bg-gradient-to-br from- bg-blue-100 to-blue-300 text-black w-full rounded-[35px] p-6 sm:p-10 flex flex-col gap-12 shadow-xl sm:w-[33%]">
+                  <div className="overflow-hidden bg-gradient-to-br from- bg-blue-100 to-blue-300 text-black w-full rounded-[35px] p-6 sm:p-10 flex flex-col gap-12 shadow-xl sm:w-[33%]">
                     <div className="flex justify-between items-start">
                       <div className="font-semibold">
                         {formatDay(currentWeather?.dt)}
@@ -350,9 +350,9 @@ function Location() {
                         <div className="flex justify-between items-center py-4 px-3 bg-gradient-to-br from-blue-400 to-blue-500 text-white rounded-2xl w-full">
 
                           {/* LEFT */}
-                          <div className="flex items-center gap-2">
+                          <div className="flex items-center gap-1">
 
-                            <div className="bg-blue-200 p-3 rounded-full w-[60px]">
+                            <div className="bg-blue-200 p-2 rounded-full w-[50px]">
                               <img
                                 src={`https://openweathermap.org/img/wn/${item?.weather[0]?.icon}@2x.png`}
                                 alt=""

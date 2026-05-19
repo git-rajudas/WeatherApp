@@ -14,13 +14,11 @@ export default defineConfig({
       registerType: "autoUpdate",
 
       manifest: {
-        id: "/",
         name: "Weather App",
         short_name: "Weather",
         description: "Modern Weather Application",
         theme_color: "#000000",
         background_color: "#000000",
-        orientation: "portrait",
         display: "standalone",
         start_url: "/",
 
@@ -29,30 +27,14 @@ export default defineConfig({
             src: "/pwa-192x192.png",
             sizes: "192x192",
             type: "image/png",
-            purpose: "any maskable",
           },
           {
             src: "/pwa-512x512.png",
             sizes: "512x512",
             type: "image/png",
-            purpose: "any maskable",
-          },
-        ],
-
-        screenshots: [
-          {
-            src: "/screenshots/mobile.png",
-            sizes: "540x720",
-            type: "image/png",
-          },
-          {
-            src: "/screenshots/desktop.png",
-            sizes: "1280x720",
-            type: "image/png",
-            form_factor: "wide",
           },
         ],
       },
-    }),
+    })
   ],
 });
