@@ -33,6 +33,7 @@ function InstallPWA() {
 
     useEffect(() => {
         const handler = (e)=> {
+            console.log("INSTALL EVENT FIRED");
             e.preventDefault();
             setDeferredPrompt(e);
             setShowInstall(true);

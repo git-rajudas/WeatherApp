@@ -1,12 +1,14 @@
 import React from 'react'
 import { RiArrowRightLine } from '@remixicon/react'
 import { NavLink } from 'react-router-dom'
+import InstallPWA from '../components/InstallPWA'
 
 
 function LandingPage() {
   return (
     
       <div className='h-screen w-full flex flex-col bg justify-between sm:justify-center items-center gap-5 sm:gap-2 bg-gradient-to-t from-white via-blue-200 to-blue-500'>
+        <InstallPWA />
         <div className='flex flex-col items-center justify-center mt-30 sm:mt-20'>
             <img className='w-[50%]' src="/weatherLogo.png" alt="" />
         </div>

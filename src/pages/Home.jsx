@@ -18,7 +18,7 @@ import ErrorPopup from "../components/ErrorPopup.jsx";
 import saveLocation from "../services/saveLocation.js";
 import getSavedLocations from "../services/getSavedLocations.js";
 import { searchCityWeather } from "../services/WeatherApi.js";
-
+import InstallPWA from '../components/InstallPWA';
 
 function Home() {
   const today = new Date().toDateString();
@@ -81,6 +81,7 @@ function Home() {
 
   return (
     <div>
+      <InstallPWA />
       <div className="min-h-screen bg-[#e9f1ff] pb-28 ">
         <div className="flex flex-col gap-10 px-6 py-8">
           {/* TOP BAR */}
